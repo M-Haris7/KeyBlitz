@@ -53,6 +53,15 @@ function gameOver() {
   document.getElementById('info').innerHTML = `WPM: ${result}`;
 }
 
+function resetGame() {
+  clearInterval(window.timer);
+  removeClass(document.getElementById('game'), 'over');
+  window.timer = null;
+  window.gameStart = null;
+  window.pauseTime = 0;
+  newGame();
+}
+
 document.getElementById('game').addEventListener('keyup', ev => {
   const key = ev.key;
   const currentWord = document.querySelector('.word.current');
@@ -155,9 +164,6 @@ document.getElementById('game').addEventListener('keyup', ev => {
   cursor.style.left = (nextLetter || nextWord).getBoundingClientRect()[nextLetter ? 'left' : 'right'] + 'px';
 });
 
-document.getElementById('newGameBtn').addEventListener('click', () => {
-  gameOver();
-  newGame();
-});
+document.getElementById('newGameBtn').addEventListener('click', resetGame);
 
 newGame();
